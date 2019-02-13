@@ -24,6 +24,7 @@ spring:
       enabled: false
   thymeleaf:
     mode: HTML
+
 server:
   servlet:
     context-path: /

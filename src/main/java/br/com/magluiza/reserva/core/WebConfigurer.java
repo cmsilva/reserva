@@ -28,9 +28,7 @@ import java.util.Arrays;
 public class WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory> {
 
     private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
-
     private final Environment env;
-
     private final ApplicationProperties applicationProperties;
 
     public WebConfigurer(Environment env, ApplicationProperties applicationProperties) {

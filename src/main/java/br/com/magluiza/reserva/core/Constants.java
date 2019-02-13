@@ -1,7 +1,5 @@
 package br.com.magluiza.reserva.core;
 
-import org.springframework.context.annotation.Condition;
-
 /**
  * Constantes globais da aplica&ccdil.&atilde;o.
  */

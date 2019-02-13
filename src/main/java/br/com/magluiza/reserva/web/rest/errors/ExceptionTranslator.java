@@ -1,11 +1,14 @@
 package br.com.magluiza.reserva.web.rest.errors;
 
+import br.com.magluiza.reserva.web.rest.dto.ErrorDto;
+import br.com.magluiza.reserva.web.rest.dto.ParameterizedErrorDto;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,7 +23,6 @@ import java.util.List;
  * Controller advice to translate the server side exceptions to client-friendly json structures.
  * The error response follows RFC7807 - Problem Details for HTTP APIs (https://tools.ietf.org/html/rfc7807)
  */
-
 @ControllerAdvice
 public class ExceptionTranslator {
 
@@ -30,7 +32,7 @@ public class ExceptionTranslator {
     public ErrorDto processValidationError(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
-        ErrorDto dto = new ErrorDto(ErrorConstants.ERR_VALIDATION);
+        ErrorDto dto = new ErrorDto(ErrorConstants.ERR_VALIDATION, "");
         for (FieldError fieldError : fieldErrors) {
             dto.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
         }
@@ -51,6 +53,13 @@ public class ExceptionTranslator {
         return new ErrorDto(ErrorConstants.ERR_METHOD_NOT_SUPPORTED, exception.getMessage());
     }
 
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDto processHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException exception) {
+        return new ErrorDto(ErrorConstants.ERR_MEDIA_NOT_SUPPORTED, exception.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDto> processRuntimeException(Exception ex) {
         BodyBuilder builder;
@@ -61,7 +70,7 @@ public class ExceptionTranslator {
             errorDto = new ErrorDto("error." + responseStatus.value().value(), responseStatus.reason());
         } else {
             builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
-            errorDto = new ErrorDto(ErrorConstants.ERR_INTERNAL_SERVER_ERROR, "Internal server error");
+            errorDto = new ErrorDto(ErrorConstants.ERR_INTERNAL_SERVER_ERROR, ex.getMessage());
         }
         return builder.body(errorDto);
     }

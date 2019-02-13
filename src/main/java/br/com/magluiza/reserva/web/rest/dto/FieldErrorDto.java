@@ -1,9 +1,10 @@
-package br.com.magluiza.reserva.web.rest.errors;
+package br.com.magluiza.reserva.web.rest.dto;
 
 import java.io.Serializable;
 
 public class FieldErrorDto implements Serializable {
 
+    private static final long serialVersionUID = -717570199245967685L;
     private final String objectName;
     private final String field;
     private final String message;

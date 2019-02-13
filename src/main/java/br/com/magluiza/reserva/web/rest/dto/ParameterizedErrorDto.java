@@ -1,4 +1,4 @@
-package br.com.magluiza.reserva.web.rest.errors;
+package br.com.magluiza.reserva.web.rest.dto;
 
 
 import java.io.Serializable;
@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class ParameterizedErrorDto implements Serializable {
 
+    private static final long serialVersionUID = -5663028837566636731L;
     private final String message;
     private final Map<String, String> paramMap;
 

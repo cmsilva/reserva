@@ -20,8 +20,8 @@ import java.util.Collection;
 @SpringBootApplication
 @EnableConfigurationProperties({ApplicationProperties.class})
 public class ReservaApp {
-    private static final Logger log = LoggerFactory.getLogger(ReservaApp.class);
 
+    private static final Logger log = LoggerFactory.getLogger(ReservaApp.class);
     private final Environment env;
 
     public ReservaApp(Environment env) {

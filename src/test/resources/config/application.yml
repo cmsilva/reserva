@@ -40,7 +40,6 @@ spring:
     thymeleaf:
         mode: HTML
 
-
 server:
     port: 10344
     address: localhost

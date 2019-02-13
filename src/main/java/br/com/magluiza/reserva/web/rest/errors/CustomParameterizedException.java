@@ -1,5 +1,7 @@
 package br.com.magluiza.reserva.web.rest.errors;
 
+import br.com.magluiza.reserva.web.rest.dto.ParameterizedErrorDto;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +20,8 @@ import java.util.Map;
  * </pre>
  */
 public class CustomParameterizedException extends RuntimeException {
+    private static final long serialVersionUID = -3028517966200827010L;
 
-    private static final long serialVersionUID = 1L;
     private static final String PARAM = "param";
     private final String message;
     private final Map<String, String> paramMap = new HashMap<>();

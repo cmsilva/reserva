@@ -13,9 +13,7 @@ import org.springframework.web.cors.CorsConfiguration;
 public class ApplicationProperties {
 
     private final Http http = new Http();
-
     private final Swagger swagger = new Swagger();
-
     private final CorsConfiguration cors = new CorsConfiguration();
 
     public Http getHttp() {

@@ -14,8 +14,8 @@ import java.sql.SQLException;
 @EnableJpaRepositories("br.com.magluiza.reserva.repository")
 @EnableTransactionManagement
 public class DatabaseConfiguration {
-    private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
+    private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
     private final Environment env;
 
     public DatabaseConfiguration(Environment env) {
