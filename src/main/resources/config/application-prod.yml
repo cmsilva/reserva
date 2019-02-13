@@ -1,0 +1,58 @@
+# ===================================================================
+# Propriedades padrões do Spring Boot.
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+logging:
+  level:
+    ROOT: INFO
+    br.com.magluiza.reserva: INFO
+
+spring:
+  profiles:
+    active: prod
+    include:
+      - swagger
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:file:./target/prod/h2db/db/reserva;DB_CLOSE_DELAY=-1
+    username: reserva
+    password:
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+  jpa:
+    database-platform: br.com.magluiza.reserva.core.FixedH2Dialect
+    database: H2
+    show-sql: false
+    properties:
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: true
+  messages:
+    cache-duration: PT1S # 1 second, see the ISO 8601 standard
+  thymeleaf:
+    cache: true
+
+server:
+  port: 8081
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+    min-response-size: 1024
+
+# ===================================================================
+# Propriedades específicas da aplicação
+# ===================================================================
+
+application:
+  http:
+    version: V_1_1
+

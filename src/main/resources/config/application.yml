@@ -1,0 +1,63 @@
+# ===================================================================
+# Propriedades padrões do Spring Boot.
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+spring:
+  application:
+    name: reserva
+  profiles:
+    active:
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: UTC
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+  messages:
+    basename: i18n/messages
+  mvc:
+    favicon:
+      enabled: false
+  thymeleaf:
+    mode: HTML
+server:
+  servlet:
+    context-path: /
+    session:
+      cookie:
+        http-only: true
+
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: ["configprops", "env", "health", "info", "threaddump", "logfile", "prometheus" ]
+
+# ===================================================================
+# Propriedades específicas da aplicação
+# ===================================================================
+
+application:
+  cors:
+    allowed-origins: "*"
+    allowed-methods: "*"
+    allowed-headers: "*"
+    allow-credentials: true
+    max-age: 1800
+  swagger:
+    default-include-pattern: /api/.*
+    title: Reserva de Salas API
+    description: Reserva de Salas API documentação
+    version: 0.0.1
+    terms-of-service-url:
+    contact-name:
+    contact-url:
+    contact-email:
+    license:
+    license-url:
+

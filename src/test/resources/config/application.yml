@@ -1,0 +1,52 @@
+# ===================================================================
+# Propriedades padrões do Spring Boot.
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+spring:
+    application:
+        name: reserva
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:h2:mem:reserva;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        name:
+        username:
+        password:
+        hikari:
+            auto-commit: false
+    jpa:
+        database-platform: br.com.magluiza.reserva.core.FixedH2Dialect
+        database: H2
+        open-in-view: false
+        show-sql: false
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        properties:
+            hibernate.id.new_generator_mappings: true
+            hibernate.connection.provider_disables_autocommit: true
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: false
+            hibernate.hbm2ddl.auto: validate
+            hibernate.jdbc.time_zone: UTC
+    messages:
+        basename: i18n/messages
+    mvc:
+        favicon:
+            enabled: false
+    thymeleaf:
+        mode: HTML
+
+
+server:
+    port: 10344
+    address: localhost
+
+# ===================================================================
+# Propriedade específicas da aplicação
+# ===================================================================
+
+# application:
