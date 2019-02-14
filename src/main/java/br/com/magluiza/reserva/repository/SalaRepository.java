@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface SalaRepository extends JpaRepository<Sala, Long> {
-
     Optional<Sala> findByNomeIgnoreCase(String nome);
 }

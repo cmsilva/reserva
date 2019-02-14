@@ -5,14 +5,13 @@ import br.com.magluiza.reserva.domain.Sala;
 import java.util.List;
 
 public interface SalaService {
-    Sala create(String nome);
+    Sala criar(Sala sala);
 
-    List<Sala> findAll();
+    List<Sala> recuperarTudo();
 
-    Sala findById(Long id);
+    Sala recuperarPorId(Long id);
 
-    void delete(Long id);
+    void remover(Long id);
 
-    Sala update(Sala sala);
-
+    Sala atualizar(Sala sala);
 }

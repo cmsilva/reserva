@@ -7,7 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 /**
  * Classe abstrata base para entidades que devem conter
@@ -17,31 +17,31 @@ import java.time.Instant;
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1702484088232887289L;
 
     @CreatedDate
-    @Column(name = "data_criacao", updatable = false)
     @JsonIgnore
-    private Instant dataCriacao = Instant.now();
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
     @LastModifiedDate
-    @Column(name = "data_ultima_modificacao")
     @JsonIgnore
-    private Instant dataUltimaModificacao = Instant.now();
+    @Column(name = "data_ultima_modificacao")
+    private LocalDateTime dataUltimaModificacao = LocalDateTime.now();
 
-    public Instant getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Instant dataCriacao) {
+    public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public Instant getDataUltimaModificacao() {
+    public LocalDateTime getDataUltimaModificacao() {
         return dataUltimaModificacao;
     }
 
-    public void setDataUltimaModificacao(Instant dataUltimaModificacao) {
+    public void setDataUltimaModificacao(LocalDateTime dataUltimaModificacao) {
         this.dataUltimaModificacao = dataUltimaModificacao;
     }
 }

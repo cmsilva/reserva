@@ -2,6 +2,7 @@ package br.com.magluiza.reserva.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,17 +18,15 @@ public class Sala extends AbstractEntity {
     @Column(nullable = false)
     private String nome;
 
+    @OneToMany(mappedBy = "sala", targetEntity = Agendamento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Agendamento> agendamentos;
+
     public Sala() {
         super();
     }
 
-    public Sala(String nome) {
-        this.nome = nome;
-    }
-
-    public Sala(Long id, String nome) {
+    public Sala(Long id) {
         this.id = id;
-        this.nome = nome;
     }
 
     public Long getId() {
@@ -44,6 +43,14 @@ public class Sala extends AbstractEntity {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Agendamento> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(List<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
     }
 
     @Override

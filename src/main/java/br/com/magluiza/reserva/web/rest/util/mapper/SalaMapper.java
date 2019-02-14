@@ -1,4 +1,4 @@
-package br.com.magluiza.reserva.web.rest.mapper;
+package br.com.magluiza.reserva.web.rest.util.mapper;
 
 import br.com.magluiza.reserva.domain.Sala;
 import br.com.magluiza.reserva.web.rest.dto.SalaDto;

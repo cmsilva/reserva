@@ -18,6 +18,7 @@ public class ErrorDto implements Serializable {
     public ErrorDto(String message, String description) {
         this.message = message;
         this.description = description;
+        this.fieldErrors = new ArrayList<>();
     }
 
     public List<FieldErrorDto> getFieldErrors() {

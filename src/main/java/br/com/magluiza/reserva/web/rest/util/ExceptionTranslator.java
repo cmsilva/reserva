@@ -1,9 +1,10 @@
-package br.com.magluiza.reserva.web.rest;
+package br.com.magluiza.reserva.web.rest.util;
 
-import br.com.magluiza.reserva.core.exception.CustomParameterizedException;
+import br.com.magluiza.reserva.core.MessageConstants;
 import br.com.magluiza.reserva.core.dto.ErrorDto;
 import br.com.magluiza.reserva.core.dto.ParameterizedErrorDto;
-import br.com.magluiza.reserva.core.MessageConstants;
+import br.com.magluiza.reserva.core.exception.CustomParameterizedException;
+import br.com.magluiza.reserva.core.exception.NegocioException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
-
 
 /**
  * Controller advice to translate the server side exceptions to client-friendly json structures.
@@ -60,6 +60,13 @@ public class ExceptionTranslator {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDto processHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException exception) {
         return new ErrorDto(MessageConstants.ERR_MEDIA_NOT_SUPPORTED, exception.getMessage());
+    }
+
+    @ExceptionHandler(NegocioException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorDto processNegocioException(NegocioException exception) {
+        return new ErrorDto(exception.getChave(), exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
