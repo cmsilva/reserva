@@ -1,10 +1,11 @@
 package br.com.magluiza.reserva.web.rest.dto;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
-public class SalasDto {
+public class SalasDto implements Serializable {
+
+    private static final long serialVersionUID = -3048172558584185868L;
     private List<SalaDto> salas;
 
     public SalasDto(List<SalaDto> salas) {
@@ -17,19 +18,5 @@ public class SalasDto {
 
     public void setSalas(List<SalaDto> salas) {
         this.salas = salas;
-    }
-
-    public void add(SalaDto salaDto) {
-        if (Objects.isNull(salas)) {
-            this.salas = new ArrayList<>(10);
-        }
-        this.salas.add(salaDto);
-    }
-
-    public void clear() {
-        if (Objects.isNull(salas)) {
-            this.salas = new ArrayList<>(10);
-        }
-        this.salas.clear();
     }
 }

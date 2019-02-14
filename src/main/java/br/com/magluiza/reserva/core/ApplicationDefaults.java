@@ -19,7 +19,7 @@ public interface ApplicationDefaults {
         String contactEmail = null;
         String license = null;
         String licenseUrl = null;
-        String defaultIncludePattern = "/api/.*";
+        String basePackage = "br.com.magluiza.reserva.web.rest";
         String host = null;
         String[] protocols = {};
         boolean useDefaultResponseMessages = true;

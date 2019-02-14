@@ -64,7 +64,7 @@ public class ApplicationProperties {
 
         private String licenseUrl = ApplicationDefaults.Swagger.licenseUrl;
 
-        private String defaultIncludePattern = ApplicationDefaults.Swagger.defaultIncludePattern;
+        private String basePackage = ApplicationDefaults.Swagger.basePackage;
 
         private String host = ApplicationDefaults.Swagger.host;
 
@@ -144,12 +144,12 @@ public class ApplicationProperties {
             this.licenseUrl = licenseUrl;
         }
 
-        public String getDefaultIncludePattern() {
-            return defaultIncludePattern;
+        public String getBasePackage() {
+            return basePackage;
         }
 
-        public void setDefaultIncludePattern(String defaultIncludePattern) {
-            this.defaultIncludePattern = defaultIncludePattern;
+        public void setBasePackage(String basePackage) {
+            this.basePackage = basePackage;
         }
 
         public String getHost() {

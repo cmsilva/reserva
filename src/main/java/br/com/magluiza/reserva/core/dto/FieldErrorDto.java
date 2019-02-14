@@ -1,4 +1,4 @@
-package br.com.magluiza.reserva.web.rest.dto;
+package br.com.magluiza.reserva.core.dto;
 
 import java.io.Serializable;
 

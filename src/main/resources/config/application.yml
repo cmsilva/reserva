@@ -51,7 +51,7 @@ application:
     allow-credentials: true
     max-age: 1800
   swagger:
-    default-include-pattern: /api/.*
+    base-package: br.com.magluiza.reserva.web.rest
     title: Reserva de Salas API
     description: Reserva de Salas API documentação
     version: 0.0.1

@@ -1,4 +1,4 @@
-package br.com.magluiza.reserva.web.rest.dto;
+package br.com.magluiza.reserva.core.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class ErrorDto implements Serializable {
     private List<FieldErrorDto> fieldErrors;
 
     public ErrorDto(String message) {
-        this(message, null);
+        this(message, "");
     }
 
     public ErrorDto(String message, String description) {

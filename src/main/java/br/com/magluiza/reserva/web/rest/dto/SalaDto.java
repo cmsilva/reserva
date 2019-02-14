@@ -7,7 +7,6 @@ import java.io.Serializable;
 public class SalaDto implements Serializable {
 
     private static final long serialVersionUID = -7535450871070866294L;
-
     private Long id;
 
     @NotNull

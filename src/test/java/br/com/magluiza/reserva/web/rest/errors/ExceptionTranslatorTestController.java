@@ -1,6 +1,6 @@
 package br.com.magluiza.reserva.web.rest.errors;
 
-import org.springframework.dao.ConcurrencyFailureException;
+import br.com.magluiza.reserva.core.exception.CustomParameterizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

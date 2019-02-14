@@ -8,5 +8,8 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface SalaMapper {
     SalaMapper INSTANCE = Mappers.getMapper(SalaMapper.class);
+
     SalaDto sourceToDestination(Sala sala);
+
+    Sala destinationToSource(SalaDto sala);
 }

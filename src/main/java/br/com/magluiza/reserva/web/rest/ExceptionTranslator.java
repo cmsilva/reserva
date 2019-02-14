@@ -1,7 +1,9 @@
-package br.com.magluiza.reserva.web.rest.errors;
+package br.com.magluiza.reserva.web.rest;
 
-import br.com.magluiza.reserva.web.rest.dto.ErrorDto;
-import br.com.magluiza.reserva.web.rest.dto.ParameterizedErrorDto;
+import br.com.magluiza.reserva.core.exception.CustomParameterizedException;
+import br.com.magluiza.reserva.core.dto.ErrorDto;
+import br.com.magluiza.reserva.core.dto.ParameterizedErrorDto;
+import br.com.magluiza.reserva.core.MessageConstants;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,7 @@ public class ExceptionTranslator {
     public ErrorDto processValidationError(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
-        ErrorDto dto = new ErrorDto(ErrorConstants.ERR_VALIDATION, "");
+        ErrorDto dto = new ErrorDto(MessageConstants.ERR_VALIDATION, "");
         for (FieldError fieldError : fieldErrors) {
             dto.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
         }
@@ -50,14 +52,14 @@ public class ExceptionTranslator {
     @ResponseBody
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public ErrorDto processMethodNotSupportedException(HttpRequestMethodNotSupportedException exception) {
-        return new ErrorDto(ErrorConstants.ERR_METHOD_NOT_SUPPORTED, exception.getMessage());
+        return new ErrorDto(MessageConstants.ERR_METHOD_NOT_SUPPORTED, exception.getMessage());
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDto processHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException exception) {
-        return new ErrorDto(ErrorConstants.ERR_MEDIA_NOT_SUPPORTED, exception.getMessage());
+        return new ErrorDto(MessageConstants.ERR_MEDIA_NOT_SUPPORTED, exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
@@ -70,7 +72,7 @@ public class ExceptionTranslator {
             errorDto = new ErrorDto("error." + responseStatus.value().value(), responseStatus.reason());
         } else {
             builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
-            errorDto = new ErrorDto(ErrorConstants.ERR_INTERNAL_SERVER_ERROR, ex.getMessage());
+            errorDto = new ErrorDto(MessageConstants.ERR_INTERNAL_SERVER_ERROR, ex.getMessage());
         }
         return builder.body(errorDto);
     }

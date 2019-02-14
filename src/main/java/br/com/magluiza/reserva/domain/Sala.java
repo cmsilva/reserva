@@ -17,7 +17,7 @@ public class Sala extends AbstractEntity {
     @Column(nullable = false)
     private String nome;
 
-    protected Sala() {
+    public Sala() {
         super();
     }
 
