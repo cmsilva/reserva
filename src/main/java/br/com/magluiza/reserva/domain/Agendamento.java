@@ -3,6 +3,7 @@ package br.com.magluiza.reserva.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -21,10 +22,10 @@ public class Agendamento extends AbstractEntity {
     private String titulo;
 
     @Column(name = "data_inicio")
-    private LocalDateTime dataInicio;
+    private Date dataInicio;
 
     @Column(name = "data_fim")
-    private LocalDateTime dataFim;
+    private Date dataFim;
 
     @ManyToOne
     @JoinColumn(name = "sala_id")
@@ -38,19 +39,19 @@ public class Agendamento extends AbstractEntity {
         this.id = id;
     }
 
-    public LocalDateTime getDataInicio() {
+    public Date getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDateTime dataInicio) {
+    public void setDataInicio(Date dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDateTime getDataFim() {
+    public Date getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(LocalDateTime dataFim) {
+    public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
     }
 

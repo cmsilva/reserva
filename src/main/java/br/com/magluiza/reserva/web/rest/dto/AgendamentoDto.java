@@ -3,7 +3,7 @@ package br.com.magluiza.reserva.web.rest.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class AgendamentoDto implements Serializable {
 
@@ -16,10 +16,10 @@ public class AgendamentoDto implements Serializable {
     private String titulo;
 
     @NotNull
-    private LocalDateTime dataInicio;
+    private Date dataInicio;
 
     @NotNull
-    private LocalDateTime dataFim;
+    private Date dataFim;
 
     private SalaDto sala;
 
@@ -27,19 +27,19 @@ public class AgendamentoDto implements Serializable {
         super();
     }
 
-    public LocalDateTime getDataInicio() {
+    public Date getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDateTime dataInicio) {
+    public void setDataInicio(Date dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDateTime getDataFim() {
+    public Date getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(LocalDateTime dataFim) {
+    public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
     }
 

@@ -1,5 +1,7 @@
 package br.com.magluiza.reserva.web.rest;
 
+import br.com.magluiza.reserva.core.Constants;
+import br.com.magluiza.reserva.core.MessageConstants;
 import br.com.magluiza.reserva.core.exception.CustomParameterizedException;
 import br.com.magluiza.reserva.domain.Sala;
 import br.com.magluiza.reserva.service.SalaService;
@@ -42,10 +44,7 @@ public class SalaResource {
 
         List<SalaDto> salas = service.recuperarTudo()
                 .stream()
-                .map(sala -> {
-                    SalaDto dto = SalaMapper.INSTANCE.sourceToDestination(sala);
-                    return dto;
-                })
+                .map(sala -> SalaMapper.INSTANCE.sourceToDestination(sala))
                 .collect(Collectors.toList());
         log.debug("Quantidade de salas recuperadas: {}", salas.size());
         return new ResponseEntity<>(new SalasDto(salas), HttpStatus.OK);
@@ -55,15 +54,15 @@ public class SalaResource {
     public ResponseEntity<?> create(@Validated @RequestBody SalaDto body) {
         log.debug("Criando sala de nome: {}", body.getNome());
 
-        Sala newSala = service.criar(SalaMapper.INSTANCE.destinationToSource(body));
-        return new ResponseEntity<>(SalaMapper.INSTANCE.sourceToDestination(newSala), HttpStatus.CREATED);
+        Sala sala = service.criar(SalaMapper.INSTANCE.destinationToSource(body));
+        return new ResponseEntity<>(SalaMapper.INSTANCE.sourceToDestination(sala), HttpStatus.CREATED);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> update(@RequestBody SalaDto body) {
 
         if (Objects.isNull(body.getId())) {
-            throw new CustomParameterizedException("error.field.required", "id");
+            throw new CustomParameterizedException(MessageConstants.ERR_FIELD_REQUIRED, Constants.FIELD_SALA_ID);
         }
         service.atualizar(SalaMapper.INSTANCE.destinationToSource(body));
         return ResponseEntity.noContent().build();

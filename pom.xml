@@ -85,6 +85,12 @@
         </dependency>
 
         <dependency>
+            <groupId>net.kaczmarzyk</groupId>
+            <artifactId>specification-arg-resolver</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>${springfox.version}</version>
@@ -411,4 +417,5 @@
             </properties>
         </profile>
     </profiles>
+
 </project>

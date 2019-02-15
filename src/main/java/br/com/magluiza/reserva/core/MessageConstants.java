@@ -6,6 +6,7 @@ public final class MessageConstants {
     public static final String ERR_METHOD_NOT_SUPPORTED = "error.methodNotSupported";
     public static final String ERR_INTERNAL_SERVER_ERROR = "error.internalServerError";
     public static final String ERR_MEDIA_NOT_SUPPORTED = "error.methodNotSupported";
+    public static final String ERR_FIELD_REQUIRED = "error.fieldRequired";
 
     public static final String ERR_AGENDAMENTO_NAO_ENCONTRADO = "error.agendamentoNaoEncontrado";
     public static final String ERR_PERIODO_AGENDAMENTO_INVALIDO = "error.periodoAgendamentoInvalido";

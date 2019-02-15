@@ -10,10 +10,11 @@ import br.com.magluiza.reserva.repository.SalaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,11 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     @Override
     public List<Agendamento> recuperarTudo() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Agendamento> recuperarTudo(Specification<Agendamento> specification) {
+        return repository.findAll(specification);
     }
 
     @Override
@@ -96,12 +102,12 @@ public class AgendamentoServiceImpl implements AgendamentoService {
         }
     }
 
-    private boolean existeConflitoAgendaSala(Long idSala, LocalDateTime dataInicio, LocalDateTime dataFim) {
+    private boolean existeConflitoAgendaSala(Long idSala, Date dataInicio, Date dataFim) {
         List<Agendamento> agendamentos = repository.findAllNoPeriodoParaSala(idSala, dataInicio, dataFim);
         return !agendamentos.isEmpty();
     }
 
-    private boolean isPeriodoAgendamentoInvalido(LocalDateTime dataInicio, LocalDateTime dataFim) {
-        return dataInicio.isAfter(dataFim) || dataInicio.equals(dataFim);
+    private boolean isPeriodoAgendamentoInvalido(Date dataInicio, Date dataFim) {
+        return dataInicio.after(dataFim) || dataInicio.equals(dataFim);
     }
 }
