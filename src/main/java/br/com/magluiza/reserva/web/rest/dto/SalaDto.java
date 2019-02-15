@@ -18,7 +18,7 @@ public class SalaDto implements Serializable {
     }
 
     public SalaDto(String nome) {
-        this.nome = nome;
+        this.nome = nome == null ? "" : nome.toUpperCase();
     }
 
     public SalaDto(Long id, String nome) {
@@ -39,6 +39,6 @@ public class SalaDto implements Serializable {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome == null ? "" : nome.toUpperCase();
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public interface SalaService {
     Sala criar(Sala sala);
 
-    List<Sala> recuperarTudo();
+    List<Sala> pesquisarTudo();
 
     Sala recuperarPorId(Long id);
 

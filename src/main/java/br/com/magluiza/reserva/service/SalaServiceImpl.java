@@ -28,7 +28,7 @@ public class SalaServiceImpl implements SalaService {
     }
 
     @Override
-    public List<Sala> recuperarTudo() {
+    public List<Sala> pesquisarTudo() {
         return repository.findAll();
     }
 

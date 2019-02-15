@@ -8,13 +8,13 @@ import java.util.List;
 public interface AgendamentoService {
     Agendamento criar(Agendamento agendamento);
 
-    List<Agendamento> recuperarTudo(Specification<Agendamento> specification);
+    List<Agendamento> pesquisarTudo(Specification<Agendamento> specification);
 
-    Agendamento recuperarPorId(Long id);
+    Agendamento pesquisarPorId(Long id);
 
     void remover(Long id);
 
     Agendamento atualizar(Agendamento sala);
 
-    List<Agendamento> recuperarTudo();
+    List<Agendamento> pesquisarTudo();
 }

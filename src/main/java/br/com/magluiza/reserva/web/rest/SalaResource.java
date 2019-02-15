@@ -7,6 +7,7 @@ import br.com.magluiza.reserva.domain.Sala;
 import br.com.magluiza.reserva.service.SalaService;
 import br.com.magluiza.reserva.web.rest.dto.SalaDto;
 import br.com.magluiza.reserva.web.rest.dto.SalasDto;
+import br.com.magluiza.reserva.web.rest.util.helper.SalaHelper;
 import br.com.magluiza.reserva.web.rest.util.mapper.SalaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/sala")
@@ -32,45 +31,49 @@ public class SalaResource {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> get(@PathVariable Long id) {
-        log.debug("Recuperando a sala de id: {}", id);
+    public ResponseEntity<?> pesquisarPorId(@PathVariable Long id) {
+        log.info("Ação Pesquisar por Id");
+        log.debug("Pesquisando a sala de Id: {}", id);
 
         Sala sala = service.recuperarPorId(id);
         return new ResponseEntity<>(SalaMapper.INSTANCE.sourceToDestination(sala), HttpStatus.OK);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findAll() {
+    public ResponseEntity<?> pesquisarTudo() {
+        log.info("Ação Pesquisar tudo");
 
-        List<SalaDto> salas = service.recuperarTudo()
-                .stream()
-                .map(sala -> SalaMapper.INSTANCE.sourceToDestination(sala))
-                .collect(Collectors.toList());
-        log.debug("Quantidade de salas recuperadas: {}", salas.size());
+        List<SalaDto> salas = SalaHelper.transformarParaDto(service.pesquisarTudo());
+        log.debug("Quantidade de salas: {}", salas.size());
         return new ResponseEntity<>(new SalasDto(salas), HttpStatus.OK);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> create(@Validated @RequestBody SalaDto body) {
-        log.debug("Criando sala de nome: {}", body.getNome());
+    public ResponseEntity<?> criar(@Validated @RequestBody SalaDto body) {
+        log.info("Ação Criar");
+        log.debug("Criando Sala de nome: {}", body.getNome());
 
         Sala sala = service.criar(SalaMapper.INSTANCE.destinationToSource(body));
         return new ResponseEntity<>(SalaMapper.INSTANCE.sourceToDestination(sala), HttpStatus.CREATED);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> update(@RequestBody SalaDto body) {
+    public ResponseEntity<?> atualizar(@RequestBody SalaDto sala) {
+        log.info("Ação Atualizar");
+        log.debug("Atualizando Sala Id: {}", sala.getId());
 
-        if (Objects.isNull(body.getId())) {
+        if (SalaHelper.salaNaoEstaPreenchida(sala)) {
             throw new CustomParameterizedException(MessageConstants.ERR_FIELD_REQUIRED, Constants.FIELD_SALA_ID);
         }
-        service.atualizar(SalaMapper.INSTANCE.destinationToSource(body));
+        service.atualizar(SalaMapper.INSTANCE.destinationToSource(sala));
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        log.debug("Removendo a sala de id: {}", id);
+    public void remover(@PathVariable Long id) {
+        log.info("Ação remover");
+        log.debug("Removendo a Sala de id: {}", id);
+
         service.remover(id);
     }
 }

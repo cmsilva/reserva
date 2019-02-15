@@ -7,8 +7,13 @@ import br.com.magluiza.reserva.domain.Agendamento;
 import br.com.magluiza.reserva.service.AgendamentoService;
 import br.com.magluiza.reserva.web.rest.dto.AgendamentoDto;
 import br.com.magluiza.reserva.web.rest.dto.AgendamentosDto;
+import br.com.magluiza.reserva.web.rest.util.helper.AgendamentoHelper;
+import br.com.magluiza.reserva.web.rest.util.helper.SalaHelper;
 import br.com.magluiza.reserva.web.rest.util.mapper.AgendamentoMapper;
-import net.kaczmarzyk.spring.data.jpa.domain.*;
+import net.kaczmarzyk.spring.data.jpa.domain.Equal;
+import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
+import net.kaczmarzyk.spring.data.jpa.domain.LessThanOrEqual;
+import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.slf4j.Logger;
@@ -21,8 +26,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/agendamento")
@@ -35,81 +38,85 @@ public class AgendamentoResource {
         this.service = service;
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> get(@PathVariable Long id) {
-        log.debug("Recuperando o Agendamento de Id: {}", id);
-
-        Agendamento agendamento = service.recuperarPorId(id);
-        return new ResponseEntity<>(agendamento, HttpStatus.OK);
-    }
-
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findAll() {
-        List<AgendamentoDto> agendamentos = toDtoList(service.recuperarTudo());
+    public ResponseEntity<?> pesquisarTudo() {
+        log.info("Ação Pesquisar todos Agendamentos");
+
+        List<AgendamentoDto> agendamentos = AgendamentoHelper.transformarParaDto(service.pesquisarTudo());
         log.debug("Quantidade de Agendamentos: {}", agendamentos.size());
         return new ResponseEntity<>(new AgendamentosDto(agendamentos), HttpStatus.OK);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = "data.dia")
-    public ResponseEntity<?> findAllNoDia(
-            @And({@Spec(path = "dataInicio", params = {"data.dia"}, config = "yyyy-MM-dd", spec = DateBefore.class),
-                    @Spec(path = "dataFim", params = {"data.dia"}, config = "yyyy-MM-dd", spec = DateAfter.class)}) Specification specification) {
-        List<AgendamentoDto> agendamentos = toDtoList(service.recuperarTudo(specification));
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> pesquisarPorId(@PathVariable Long id) {
+        log.info("Ação Pesquisar Agendamento por Id");
+        log.debug("Pesquisando o Agendamento de Id: {}", id);
+
+        Agendamento agendamento = service.pesquisarPorId(id);
+        return new ResponseEntity<>(agendamento, HttpStatus.OK);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = {"dataInicio", "dataFim"})
+    public ResponseEntity<?> pesquisarPorPeriodo(
+            @And({@Spec(path = "dataInicio", params = {"dataFim"}, config = "yyyy-MM-dd", spec = LessThanOrEqual.class),
+                    @Spec(path = "dataFim", params = {"dataInicio"}, config = "yyyy-MM-dd", spec = GreaterThanOrEqual.class)}) Specification specification) {
+        log.info("Ação Pesquisar Agendamento por período");
+
+        List<AgendamentoDto> agendamentos = AgendamentoHelper.transformarParaDto(service.pesquisarTudo(specification));
         log.debug("Quantidade de Agendamentos: {}", agendamentos.size());
         return new ResponseEntity<>(new AgendamentosDto(agendamentos), HttpStatus.OK);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = "sala.nome")
-    public ResponseEntity<?> findAllNomeDaSala(@Spec(path = "sala.nome", params = "sala.nome", spec = LikeIgnoreCase.class) Specification specification) {
-        List<AgendamentoDto> agendamentos = toDtoList(service.recuperarTudo(specification));
+    public ResponseEntity<?> pesquisarPorNomeSala(@Spec(path = "sala.nome", params = "sala.nome", spec = LikeIgnoreCase.class) Specification specification) {
+        log.info("Ação Pesquisar Agendamento por nome da Sala");
+
+        List<AgendamentoDto> agendamentos = AgendamentoHelper.transformarParaDto(service.pesquisarTudo(specification));
         log.debug("Quantidade de Agendamentos: {}", agendamentos.size());
         return new ResponseEntity<>(new AgendamentosDto(agendamentos), HttpStatus.OK);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findAllIdSala(@Spec(path = "sala.id", params = "sala.id", spec = Equal.class) Specification specification) {
-        List<AgendamentoDto> agendamentos = toDtoList(service.recuperarTudo(specification));
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = "sala.id")
+    public ResponseEntity<?> pesquisarPorIdSala(@Spec(path = "sala.id", params = "sala.id", spec = Equal.class) Specification specification) {
+        log.info("Ação Pesquisar Agendamento por id Sala");
+
+        List<AgendamentoDto> agendamentos = AgendamentoHelper.transformarParaDto(service.pesquisarTudo(specification));
         log.debug("Quantidade de Agendamentos: {}", agendamentos.size());
         return new ResponseEntity<>(new AgendamentosDto(agendamentos), HttpStatus.OK);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> create(@Validated @RequestBody AgendamentoDto agendamento) {
-        log.debug("Criando Agendamento,  Título: {}", agendamento.getTitulo());
+    public ResponseEntity<?> criar(@Validated @RequestBody AgendamentoDto agendamento) {
+        log.info("Ação Criar Agendamento");
 
-        if (estaVaziaSala(agendamento)) {
+        if (SalaHelper.salaNaoEstaPreenchida(agendamento.getSala())) {
             throw new CustomParameterizedException(MessageConstants.ERR_FIELD_REQUIRED, Constants.FIELD_AGENDAMENTO_SALA_ID);
         }
+
+        log.debug("Criando Agendamento,  Título: {}, Id Sala: {}", agendamento.getTitulo(), agendamento.getSala().getId());
         Agendamento newAgendamento = service.criar(AgendamentoMapper.INSTANCE.destinationToSource(agendamento));
         return new ResponseEntity<>(AgendamentoMapper.INSTANCE.sourceToDestination(newAgendamento), HttpStatus.CREATED);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> update(@RequestBody AgendamentoDto agendamento) {
-        if (Objects.isNull(agendamento.getId())) {
+    public ResponseEntity<?> atualizar(@RequestBody AgendamentoDto agendamento) {
+        log.info("Ação Atualizar Agendamento");
+
+        if (AgendamentoHelper.agendamentoNaoEstaPreenchido(agendamento)) {
             throw new CustomParameterizedException(MessageConstants.ERR_FIELD_REQUIRED, Constants.FIELD_AGENDAMENTO_ID);
         }
-        if (estaVaziaSala(agendamento)) {
+        if (SalaHelper.salaNaoEstaPreenchida(agendamento.getSala())) {
             throw new CustomParameterizedException(MessageConstants.ERR_FIELD_REQUIRED, Constants.FIELD_AGENDAMENTO_SALA_ID);
         }
-
         service.atualizar(AgendamentoMapper.INSTANCE.destinationToSource(agendamento));
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        log.debug("Removendo a Agendamento de Id: {}", id);
+    public void remover(@PathVariable Long id) {
+        log.info("Ação Remover Agendamento por Id");
+        log.debug("Removendo o Agendamento de Id: {}", id);
+
         service.remover(id);
-    }
-
-    private boolean estaVaziaSala(@RequestBody @Validated AgendamentoDto agendamento) {
-        return (Objects.isNull(agendamento.getSala()) || Objects.isNull(agendamento.getSala().getId()));
-    }
-
-    private List<AgendamentoDto> toDtoList(List<Agendamento> agendamentos) {
-        return agendamentos.stream()
-                .map(agendamento -> AgendamentoMapper.INSTANCE.sourceToDestination(agendamento))
-                .collect(Collectors.toList());
     }
 }
