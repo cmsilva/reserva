@@ -4,21 +4,17 @@ import br.com.magluiza.reserva.core.Constants;
 import br.com.magluiza.reserva.core.MessageConstants;
 import br.com.magluiza.reserva.core.exception.CustomParameterizedException;
 import br.com.magluiza.reserva.domain.Agendamento;
+import br.com.magluiza.reserva.repository.specification.AgendamentoPesquisarPorIdSalaSpec;
+import br.com.magluiza.reserva.repository.specification.AgendamentoPesquisarPorNomeSalaSpec;
+import br.com.magluiza.reserva.repository.specification.AgendamentoPesquisarPorPeriodoSpec;
 import br.com.magluiza.reserva.service.AgendamentoService;
 import br.com.magluiza.reserva.web.rest.dto.AgendamentoDto;
 import br.com.magluiza.reserva.web.rest.dto.AgendamentosDto;
 import br.com.magluiza.reserva.web.rest.util.helper.AgendamentoHelper;
 import br.com.magluiza.reserva.web.rest.util.helper.SalaHelper;
 import br.com.magluiza.reserva.web.rest.util.mapper.AgendamentoMapper;
-import net.kaczmarzyk.spring.data.jpa.domain.Equal;
-import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
-import net.kaczmarzyk.spring.data.jpa.domain.LessThanOrEqual;
-import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
-import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
-import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -57,9 +53,7 @@ public class AgendamentoResource {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = {"dataInicio", "dataFim"})
-    public ResponseEntity<?> pesquisarPorPeriodo(
-            @And({@Spec(path = "dataInicio", params = {"dataFim"}, config = "yyyy-MM-dd", spec = LessThanOrEqual.class),
-                    @Spec(path = "dataFim", params = {"dataInicio"}, config = "yyyy-MM-dd", spec = GreaterThanOrEqual.class)}) Specification specification) {
+    public ResponseEntity<?> pesquisarPorPeriodo(AgendamentoPesquisarPorPeriodoSpec specification) {
         log.info("Ação Pesquisar Agendamento por período");
 
         List<AgendamentoDto> agendamentos = AgendamentoHelper.transformarParaDto(service.pesquisarTudo(specification));
@@ -68,7 +62,7 @@ public class AgendamentoResource {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = "sala.nome")
-    public ResponseEntity<?> pesquisarPorNomeSala(@Spec(path = "sala.nome", params = "sala.nome", spec = LikeIgnoreCase.class) Specification specification) {
+    public ResponseEntity<?> pesquisarPorNomeSala(AgendamentoPesquisarPorNomeSalaSpec specification) {
         log.info("Ação Pesquisar Agendamento por nome da Sala");
 
         List<AgendamentoDto> agendamentos = AgendamentoHelper.transformarParaDto(service.pesquisarTudo(specification));
@@ -77,7 +71,7 @@ public class AgendamentoResource {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, params = "sala.id")
-    public ResponseEntity<?> pesquisarPorIdSala(@Spec(path = "sala.id", params = "sala.id", spec = Equal.class) Specification specification) {
+    public ResponseEntity<?> pesquisarPorIdSala(AgendamentoPesquisarPorIdSalaSpec specification) {
         log.info("Ação Pesquisar Agendamento por id Sala");
 
         List<AgendamentoDto> agendamentos = AgendamentoHelper.transformarParaDto(service.pesquisarTudo(specification));
