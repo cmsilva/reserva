@@ -29,11 +29,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Test unit&aacute;rio para a classe WebConfigurer.
- *
- * @see WebConfigurer
- */
 public class WebConfigurerTest {
 
     private WebConfigurer webConfigurer;

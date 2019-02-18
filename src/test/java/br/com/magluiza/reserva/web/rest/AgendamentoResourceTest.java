@@ -30,11 +30,6 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * Test class for the AgendamentoResource REST controller.
- *
- * @see AgendamentoResource
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ReservaApp.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AgendamentoResourceTest {
