@@ -23,9 +23,9 @@ Para executar os testes da aplicação, execute:
 
     ./mvnw clean test
 
-O relatório contendo o resultado do % de cobertura de testes encontra-se na pasta:
+O relatório contendogit ssat o resultado do % de cobertura de testes encontra-se na pasta:
 
-    ./target/test-results/coverage/jacoco/index.html
+    ${project.base.dir}/target/test-results/coverage/jacoco/index.html
 
 ## Endpoints da Aplicação:
 ### API SALA
