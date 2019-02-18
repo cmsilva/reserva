@@ -4,48 +4,67 @@
 # ===================================================================
 
 spring:
-    application:
-        name: reserva
+    profiles:
+        active: test
+        include:
+    devtools:
+        restart:
+            enabled: true
+    jackson:
+        serialization:
+            indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:reserva;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-        name:
-        username:
+        url: jdbc:h2:file:./target/dev/h2db/db/reserva;DB_CLOSE_DELAY=-1
+        username: reserva
         password:
         hikari:
+            poolName: Hikari
             auto-commit: false
+    h2:
+        console:
+            enabled: false
     jpa:
-        database-platform: br.com.magluiza.reserva.core.FixedH2Dialect
-        database: H2
         open-in-view: false
-        show-sql: false
         hibernate:
-            ddl-auto: none
+            ddl-auto: create-drop
             naming:
                 physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        database-platform: br.com.magluiza.reserva.core.FixedH2Dialect
+        database: H2
+        show-sql: false
         properties:
             hibernate.id.new_generator_mappings: true
             hibernate.connection.provider_disables_autocommit: true
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
-            hibernate.generate_statistics: false
-            hibernate.hbm2ddl.auto: validate
+            hibernate.generate_statistics: true
             hibernate.jdbc.time_zone: UTC
+
     messages:
-        basename: i18n/messages
-    mvc:
-        favicon:
-            enabled: false
+        cache-duration: PT1S # 1 second, see the ISO 8601 standard
     thymeleaf:
-        mode: HTML
+        cache: false
 
 server:
-    port: 10344
-    address: localhost
+    servlet:
+        context-path: /
+        session:
+            cookie:
+                http-only: true
+    port: 9000
 
+management:
+    endpoints:
+        web:
+            base-path: /management
+            exposure:
+                include: ["configprops", "env", "health", "info", "threaddump", "logfile", "prometheus" ]
 # ===================================================================
-# Propriedade específicas da aplicação
+# Propriedades específicas da aplicação
 # ===================================================================
 
-# application:
+application:
+    http:
+        version: V_1_1

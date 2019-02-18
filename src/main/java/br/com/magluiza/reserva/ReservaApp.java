@@ -1,8 +1,6 @@
 package br.com.magluiza.reserva;
 
-import br.com.magluiza.reserva.core.ApplicationProperties;
-import br.com.magluiza.reserva.core.Constants;
-import br.com.magluiza.reserva.core.DefaultProfileUtil;
+import br.com.magluiza.reserva.core.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
@@ -22,7 +19,6 @@ import java.util.Collection;
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @EnableConfigurationProperties({ApplicationProperties.class})
-@ComponentScan(basePackages={"br.com.magluiza.reserva","net.kaczmarzyk"})
 public class ReservaApp {
 
     private static final Logger log = LoggerFactory.getLogger(ReservaApp.class);
@@ -53,7 +49,16 @@ public class ReservaApp {
      * @param args os argumentos da linha de comando
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(ReservaApp.class);
+        SpringApplication app = new SpringApplication(
+                ReservaApp.class,
+                ModuleConfiguration.class,
+                WebConfigurer.class,
+                JacksonConfiguration.class,
+                DateTimeFormatConfiguration.class,
+                SpecificationResolverConfiguration.class,
+                DatabaseConfiguration.class,
+                SwaggerConfiguration.class
+        );
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
