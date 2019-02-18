@@ -75,7 +75,7 @@ O relatório contendo o resultado do % de cobertura de testes encontra-se na pas
     Ex. http://localhost:8081/api/agendamento?sala.nome=Sala Minas Gerais
         
 * [http://localhost:8081/api/agendamento?dataInicio=date&dataFim=date]<br/> Retorna todos os agendamentos contidos dentro de um período.<br/>
-    Ex. http://localhost:8081/api/agendamento?dataInicio=2015-01-26T08:00:00&dataFim=2015-07-29T09:20:00
+    Ex. http://localhost:8081/api/agendamento?dataInicio=2018-01-26T08:00:00&dataFim=2018-07-29T09:20:00
     
 ####POST
 

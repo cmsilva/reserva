@@ -55,7 +55,6 @@ public class ReservaApp {
                 WebConfigurer.class,
                 JacksonConfiguration.class,
                 DateTimeFormatConfiguration.class,
-                SpecificationResolverConfiguration.class,
                 DatabaseConfiguration.class,
                 SwaggerConfiguration.class
         );

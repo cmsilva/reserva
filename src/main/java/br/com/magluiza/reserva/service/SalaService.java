@@ -9,7 +9,7 @@ public interface SalaService {
 
     List<Sala> pesquisarTudo();
 
-    Sala recuperarPorId(Long id);
+    Sala pesquisarPorId(Long id);
 
     void remover(Long id);
 

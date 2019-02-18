@@ -33,7 +33,7 @@ public class SalaServiceImpl implements SalaService {
     }
 
     @Override
-    public Sala recuperarPorId(Long id) {
+    public Sala pesquisarPorId(Long id) {
         validarAcao(new Sala(id), Constants.Acao.PESQUISAR_ID);
         return repository.findById(id).get();
     }

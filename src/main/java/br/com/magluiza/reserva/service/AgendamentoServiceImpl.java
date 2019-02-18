@@ -41,8 +41,18 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     }
 
     @Override
-    public List<Agendamento> pesquisarTudo(Specification<Agendamento> specification) {
-        return repository.findAll(specification);
+    public List<Agendamento> pesquisarPorNomeSala(String nome) {
+        return repository.findPorNomeSala(nome);
+    }
+
+    @Override
+    public List<Agendamento> pesquisarPorIdSala(Long idSala) {
+        return repository.findPorIdSala(idSala);
+    }
+
+    @Override
+    public List<Agendamento> pesquisarPorPeriodo(LocalDateTime dataInicio, LocalDateTime dataFim) {
+        return repository.findPorPeriodo(dataInicio, dataFim);
     }
 
     @Override
@@ -113,8 +123,8 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     private boolean isNecessarioVerificarConflitoAgenda(Agendamento agAntigo, Agendamento agNovo) {
         return !(
                 agAntigo.getDataInicio().equals(agNovo.getDataInicio()) &&
-                agAntigo.getDataFim().equals(agNovo.getDataFim()) &&
-                agAntigo.getSala().getId().equals(agNovo.getSala().getId()));
+                        agAntigo.getDataFim().equals(agNovo.getDataFim()) &&
+                        agAntigo.getSala().getId().equals(agNovo.getSala().getId()));
     }
 
     private boolean isExisteConflitoAgendaSala(Long idSala, LocalDateTime dataInicio, LocalDateTime dataFim) {

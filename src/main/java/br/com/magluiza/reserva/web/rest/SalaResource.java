@@ -35,7 +35,7 @@ public class SalaResource {
         log.info("Ação Pesquisar por Id");
         log.debug("Pesquisando a sala de Id: {}", id);
 
-        Sala sala = service.recuperarPorId(id);
+        Sala sala = service.pesquisarPorId(id);
         return new ResponseEntity<>(SalaMapper.INSTANCE.sourceToDestination(sala), HttpStatus.OK);
     }
 
