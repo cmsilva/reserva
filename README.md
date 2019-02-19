@@ -1,6 +1,12 @@
 # Gestão de Reservas de Salas
 
 ## Desenvolvimento
+Pré-Requisitos:
+<p>
+Java 8 (JDK)
+<br/>
+Maven
+</p>
 
 Para iniciar a aplicação no perfil de "dev", execute:
 
