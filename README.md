@@ -2,7 +2,7 @@
 
 ## Desenvolvimento
 
-Para iniciar a aplicação no perfil de "dev", simplesmente execute:
+Para iniciar a aplicação no perfil de "dev", execute:
 
     ./mvnw
 
@@ -23,20 +23,20 @@ Para executar os testes da aplicação, execute:
 
     ./mvnw clean test
 
-O relatório contendogit ssat o resultado do % de cobertura de testes encontra-se na pasta:
+O relatório contendo o resultado do % de cobertura de testes encontra-se na pasta:
 
     ${project.base.dir}/target/test-results/coverage/jacoco/index.html
 
 ## Endpoints da Aplicação:
 ### API SALA
-####GET
+###GET
 
 * [http://localhost:8081/api/sala] <br/>Retorna todas as salas.<br/>
 
 * [http://localhost:8081/api/sala/{id}] <br/>Retorna uma sala por id.<br/>
     Ex. http://localhost:8081/api/sala/1
 
-####POST
+###POST
 
 * [http://localhost:8081/api/sala] <br/>Cria uma sala.<br/>
 <pre>
@@ -46,7 +46,7 @@ O relatório contendogit ssat o resultado do % de cobertura de testes encontra-s
 }
 </code>
 </pre>
-####PUT
+###PUT
 * [http://localhost:8081/api/sala]<br/>Altera uma sala.<br/>
 <pre>
 <code>
@@ -56,12 +56,12 @@ O relatório contendogit ssat o resultado do % de cobertura de testes encontra-s
 }
 </code>
 </pre>
-####DELETE
+###DELETE
 * [http://localhost:8081/api/sala/{id}]<br/>Remove uma sala pelo id.
 
 
 ### API AGENDAMENTO
-####GET
+###GET
 
 * [http://localhost:8081/api/agendamento] <br/>Retorna todos os agendamentos.<br/>
 
@@ -77,7 +77,7 @@ O relatório contendogit ssat o resultado do % de cobertura de testes encontra-s
 * [http://localhost:8081/api/agendamento?dataInicio=date&dataFim=date]<br/> Retorna todos os agendamentos contidos dentro de um período.<br/>
     Ex. http://localhost:8081/api/agendamento?dataInicio=2018-01-26T08:00:00&dataFim=2018-07-29T09:20:00
     
-####POST
+###POST
 
 * [http://localhost:8081/api/agendamento]<br/> Cria um agendamento.<br/>
 <pre>
@@ -92,7 +92,7 @@ O relatório contendogit ssat o resultado do % de cobertura de testes encontra-s
 }
 </code>
 </pre>
-####PUT
+###PUT
 * [http://localhost:8081/api/agendamento]<br/> Altera um agendamento.<br/>
 <pre>
 <code>
@@ -107,7 +107,7 @@ O relatório contendogit ssat o resultado do % de cobertura de testes encontra-s
 }
 </code>
 </pre>
-####DELETE
+###DELETE
 * [http://localhost:8081/api/agendamento/{id}]<br/> Remove um agendamento pelo id.
 
 
