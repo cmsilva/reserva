@@ -50,15 +50,4 @@ application:
     allowed-headers: "*"
     allow-credentials: true
     max-age: 1800
-  swagger:
-    base-package: br.com.magluiza.reserva.web.rest
-    title: Reserva de Salas API
-    description: Reserva de Salas API documentação
-    version: 0.0.1
-    terms-of-service-url:
-    contact-name:
-    contact-url:
-    contact-email:
-    license:
-    license-url:
 

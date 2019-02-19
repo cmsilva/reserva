@@ -59,9 +59,9 @@ public class AgendamentoResourceTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.agendamentos", hasSize(1)))
                 .andExpect(jsonPath("$.agendamentos[0].id", Is.is(1)))
-                .andExpect(jsonPath("$.agendamentos[0].titulo", Is.is("AG1")))
+                .andExpect(jsonPath("$.agendamentos[0].titulo", Is.is("Ag1")))
                 .andExpect(jsonPath("$.agendamentos[0].sala.id", Is.is(1)))
-                .andExpect(jsonPath("$.agendamentos[0].sala.nome", Is.is("SL1")));
+                .andExpect(jsonPath("$.agendamentos[0].sala.nome", Is.is("Sl1")));
     }
 
     @Test
@@ -75,9 +75,9 @@ public class AgendamentoResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.id", Is.is(1)))
-                .andExpect(jsonPath("$.titulo", Is.is("AG1")))
+                .andExpect(jsonPath("$.titulo", Is.is("Ag1")))
                 .andExpect(jsonPath("$.sala.id", Is.is(1)))
-                .andExpect(jsonPath("$.sala.nome", Is.is("SL1")));
+                .andExpect(jsonPath("$.sala.nome", Is.is("Sl1")));
     }
 
     @Test
@@ -91,9 +91,9 @@ public class AgendamentoResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.agendamentos", hasSize(1)))
                 .andExpect(jsonPath("$.agendamentos[0].id", Is.is(1)))
-                .andExpect(jsonPath("$.agendamentos[0].titulo", Is.is("AG1")))
+                .andExpect(jsonPath("$.agendamentos[0].titulo", Is.is("Ag1")))
                 .andExpect(jsonPath("$.agendamentos[0].sala.id", Is.is(1)))
-                .andExpect(jsonPath("$.agendamentos[0].sala.nome", Is.is("SL1")));
+                .andExpect(jsonPath("$.agendamentos[0].sala.nome", Is.is("Sl1")));
     }
 
     @Test
@@ -108,9 +108,9 @@ public class AgendamentoResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.agendamentos", hasSize(1)))
                 .andExpect(jsonPath("$.agendamentos[0].id", Is.is(1)))
-                .andExpect(jsonPath("$.agendamentos[0].titulo", Is.is("AG1")))
+                .andExpect(jsonPath("$.agendamentos[0].titulo", Is.is("Ag1")))
                 .andExpect(jsonPath("$.agendamentos[0].sala.id", Is.is(1)))
-                .andExpect(jsonPath("$.agendamentos[0].sala.nome", Is.is("SL1")));
+                .andExpect(jsonPath("$.agendamentos[0].sala.nome", Is.is("Sl1")));
     }
 
     @Test
@@ -124,9 +124,9 @@ public class AgendamentoResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.agendamentos", hasSize(1)))
                 .andExpect(jsonPath("$.agendamentos[0].id", Is.is(1)))
-                .andExpect(jsonPath("$.agendamentos[0].titulo", Is.is("AG1")))
+                .andExpect(jsonPath("$.agendamentos[0].titulo", Is.is("Ag1")))
                 .andExpect(jsonPath("$.agendamentos[0].sala.id", Is.is(1)))
-                .andExpect(jsonPath("$.agendamentos[0].sala.nome", Is.is("SL1")));
+                .andExpect(jsonPath("$.agendamentos[0].sala.nome", Is.is("Sl1")));
     }
 
     @Test
@@ -143,9 +143,9 @@ public class AgendamentoResourceTest {
                 .content(content))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", Is.is(1)))
-                .andExpect(jsonPath("$.titulo", Is.is("AG1")))
+                .andExpect(jsonPath("$.titulo", Is.is("Ag1")))
                 .andExpect(jsonPath("$.sala.id", Is.is(1)))
-                .andExpect(jsonPath("$.sala.nome", Is.is("SL1")));
+                .andExpect(jsonPath("$.sala.nome", Is.is("Sl1")));
     }
 
     @Test
@@ -155,7 +155,7 @@ public class AgendamentoResourceTest {
             restAgendamentoMockMvc.perform(post("/api/agendamento/")
                     .contentType(MediaType.APPLICATION_JSON_UTF8)
                     .content(content));
-
+            Assert.fail();
         } catch (NestedServletException e) {
             CustomParameterizedException cause = (CustomParameterizedException) e.getCause();
             Assert.assertEquals(cause.getErrorDto().getMessage(), MessageConstants.ERR_FIELD_REQUIRED);
@@ -186,7 +186,7 @@ public class AgendamentoResourceTest {
                     .contentType(MediaType.APPLICATION_JSON_UTF8)
                     .content(content))
                     .andExpect(status().isNoContent());
-
+            Assert.fail();
         } catch (NestedServletException e) {
             CustomParameterizedException cause = (CustomParameterizedException) e.getCause();
             Assert.assertEquals(cause.getErrorDto().getMessage(), MessageConstants.ERR_FIELD_REQUIRED);
@@ -202,7 +202,7 @@ public class AgendamentoResourceTest {
                     .contentType(MediaType.APPLICATION_JSON_UTF8)
                     .content(content))
                     .andExpect(status().isNoContent());
-
+            Assert.fail();
         } catch (NestedServletException e) {
             CustomParameterizedException cause = (CustomParameterizedException) e.getCause();
             Assert.assertEquals(cause.getErrorDto().getMessage(), MessageConstants.ERR_FIELD_REQUIRED);

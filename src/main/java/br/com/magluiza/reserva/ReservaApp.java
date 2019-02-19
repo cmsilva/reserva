@@ -55,8 +55,7 @@ public class ReservaApp {
                 WebConfigurer.class,
                 JacksonConfiguration.class,
                 DateTimeFormatConfiguration.class,
-                DatabaseConfiguration.class,
-                SwaggerConfiguration.class
+                DatabaseConfiguration.class
         );
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();

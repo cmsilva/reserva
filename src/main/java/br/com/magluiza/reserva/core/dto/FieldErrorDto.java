@@ -1,29 +1,17 @@
 package br.com.magluiza.reserva.core.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
 public class FieldErrorDto implements Serializable {
 
     private static final long serialVersionUID = -717570199245967685L;
-    private final String objectName;
-    private final String field;
-    private final String message;
+    private String objectName;
+    private String field;
+    private String message;
 
-    public FieldErrorDto(String dto, String field, String message) {
-        this.objectName = dto;
-        this.field = field;
-        this.message = message;
-    }
-
-    public String getObjectName() {
-        return objectName;
-    }
-
-    public String getField() {
-        return field;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }

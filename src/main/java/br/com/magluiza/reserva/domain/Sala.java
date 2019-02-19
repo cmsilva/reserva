@@ -1,12 +1,16 @@
 package br.com.magluiza.reserva.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "sala")
+@Data
+@AllArgsConstructor
 public class Sala extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
@@ -27,55 +31,5 @@ public class Sala extends AbstractEntity {
 
     public Sala(Long id) {
         this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public List<Agendamento> getAgendamentos() {
-        return agendamentos;
-    }
-
-    public void setAgendamentos(List<Agendamento> agendamentos) {
-        this.agendamentos = agendamentos;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Sala sala = (Sala) o;
-        return !(sala.getId() == null || getId() == null) && Objects.equals(getId(), sala.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "Sala{" +
-                "id='" + id + '\'' +
-                ", nome='" + nome + '\'' +
-                '}';
     }
 }

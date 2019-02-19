@@ -1,9 +1,16 @@
 package br.com.magluiza.reserva.web.rest.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SalaDto implements Serializable {
 
     private static final long serialVersionUID = -7535450871070866294L;
@@ -12,33 +19,4 @@ public class SalaDto implements Serializable {
     @NotNull
     @NotBlank
     private String nome;
-
-    public SalaDto() {
-        super();
-    }
-
-    public SalaDto(String nome) {
-        this.nome = nome == null ? "" : nome.toUpperCase();
-    }
-
-    public SalaDto(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome == null ? "" : nome.toUpperCase();
-    }
 }

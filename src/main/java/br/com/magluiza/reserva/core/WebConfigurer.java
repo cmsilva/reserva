@@ -20,7 +20,6 @@ import javax.servlet.ServletException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-
 /**
  * Configura&ccedil;&atilde;o da aplica&ccedil;&atilde;o web com Servlet 3.0 APIs.
  */

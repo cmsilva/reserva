@@ -43,6 +43,7 @@
         <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
 
+        <projectlombok.version>1.18.4</projectlombok.version>
     </properties>
 
     <dependencies>
@@ -88,22 +89,6 @@
             <groupId>net.kaczmarzyk</groupId>
             <artifactId>specification-arg-resolver</artifactId>
             <version>2.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-bean-validators</artifactId>
-            <version>${springfox.version}</version>
         </dependency>
 
         <dependency>
@@ -182,12 +167,18 @@
             <artifactId>spring-boot-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.mockito</groupId>-->
-            <!--<artifactId>mockito-core</artifactId>-->
-            <!--<version>2.24.0</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>pl.pojo</groupId>
+            <artifactId>pojo-tester</artifactId>
+            <version>0.7.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${projectlombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -202,6 +193,11 @@
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
                             <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${projectlombok.version}</version>
                         </path>
                         <path>
                             <groupId>org.hibernate</groupId>
@@ -297,13 +293,15 @@
                     <configuration>
                         <rules>
                             <requireMavenVersion>
-                                <message>Você está utilizando uma versão antiga do Maven. A aplicação necessita no mínimo do Maven
+                                <message>Você está utilizando uma versão antiga do Maven. A aplicação necessita no
+                                    mínimo do Maven
                                     ${maven.version}
                                 </message>
                                 <version>[${maven.version},)</version>
                             </requireMavenVersion>
                             <requireJavaVersion>
-                                <message>Você está utilizando uma versão do Java incompatível. A aplicação necessita da JDK
+                                <message>Você está utilizando uma versão do Java incompatível. A aplicação necessita da
+                                    JDK
                                     ${java.version}
                                 </message>
                                 <version>[1.8,1.9)</version>
@@ -339,12 +337,6 @@
         </pluginManagement>
     </build>
     <profiles>
-        <profile>
-            <id>swagger</id>
-            <properties>
-                <profile.swagger>,swagger</profile.swagger>
-            </properties>
-        </profile>
         <profile>
             <id>dev</id>
             <activation>

@@ -61,7 +61,7 @@ public class SalaResourceTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.salas", hasSize(1)))
                 .andExpect(jsonPath("$.salas[0].id", Is.is(1)))
-                .andExpect(jsonPath("$.salas[0].nome", Is.is("SL1")));
+                .andExpect(jsonPath("$.salas[0].nome", Is.is("Sl1")));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class SalaResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.id", Is.is(1)))
-                .andExpect(jsonPath("$.nome", Is.is("SL1")));
+                .andExpect(jsonPath("$.nome", Is.is("Sl1")));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class SalaResourceTest {
                 .content(content))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", Is.is(1)))
-                .andExpect(jsonPath("$.nome", Is.is("SL1")));
+                .andExpect(jsonPath("$.nome", Is.is("Sl1")));
 
     }
 
